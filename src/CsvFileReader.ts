@@ -1,7 +1,4 @@
 import fs from 'fs';
-import { MatchResult } from './MatchResult'
-
-type MatchData = [Date, string, string, number, number, MatchResult, string]
 
 export abstract class CsvFileReader<Type> {
     // Convention is to call this T as generic name for TypeOfData
