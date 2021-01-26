@@ -1,12 +1,12 @@
 import fs from 'fs';
+import { dateStringToDate } from './utils'
+import { MatchResult } from './MatchResult'
 
-export abstract class CsvFileReader<Type> {
-    // Convention is to call this T as generic name for TypeOfData
-    data: Type[] = [];
+type MatchData = [Date, string, string, number, number, MatchResult, string]
 
+export class CsvFileReader {
+    data: MatchData[] = [];
     constructor(public filename: string){}
-
-    abstract mapRow(row: string[]): Type;
 
     read(): void {
         this.data = fs
@@ -17,6 +17,16 @@ export abstract class CsvFileReader<Type> {
             .map((row: string): string[] => {
                 return row.split(',')
             })
-            .map( this.mapRow)
+            .map( (row: string[]): MatchData =>{
+                return [
+                    dateStringToDate(row[0]),
+                    row[1],
+                    row[2],
+                    parseInt(row[3]),
+                    parseInt(row[4]),
+                    row[5] as MatchResult, // This is a type asserstion, Tells TS result will be 'H', 'A', or 'D'
+                    row[6]
+                ]
+            })
     }
 }
