@@ -42,5 +42,14 @@ const holdNumber = new HoldAnything<number>();
 hodNumber.data = 1234;
 
 cosnt holdString = new HoldAnything<string>();
+
 holdString.data = `I'm a string`;
 ```
+
+Inheritance vs Composition
+
+Inheritance = 'is a'
+Composition = 'has a'
+
+Inheritance, MatchReader is a CsvFile Reader
+Composition, MatchReader has a ref to CsvFileReader
