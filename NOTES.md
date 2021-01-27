@@ -46,10 +46,46 @@ cosnt holdString = new HoldAnything<string>();
 holdString.data = `I'm a string`;
 ```
 
-Inheritance vs Composition
+## Inheritance vs Composition
 
 Inheritance = 'is a'
 Composition = 'has a'
 
 Inheritance, MatchReader is a CsvFile Reader
 Composition, MatchReader has a ref to CsvFileReader
+
+## If we wanted to model a window in a house:
+
+#### Inheritance
+
+| **class Window** |
+| open: boolean |
+|toggleOpen():void |
+| height: number |
+|width: number |
+|area(): number |
+
+| **class Wall** |
+|color: string |
+| height: number |
+|width: number |
+|area(): number |
+
+To avoid duplication between these 2 classes we might create a common partent class for both of these
+
+| **class Rectangle** |
+| height: number |
+|width: number |
+|area(): number |
+Then Wall and Window would extend Rectangle
+
+But what if we had a circular window?
+Then we might need to make class Window RectangleWindow
+and class Circle with a child class CircleWindow
+But then we would have duplicatio nwith the open and toggleOpen properties.
+
+#### Composition
+
+With Composition we could start with a Class Rectangle
+
+And to create Class Wall we would make that has a shape property which is either a rectangle or a circle Class object
