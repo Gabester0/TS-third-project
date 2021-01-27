@@ -88,4 +88,36 @@ But then we would have duplicatio nwith the open and toggleOpen properties.
 
 With Composition we could start with a Class Rectangle
 
-And to create Class Wall we would make that has a shape property which is either a rectangle or a circle Class object
+And to create Class Wall we would make our class have a shape property which is either a rectangle or a circle Class object that handles height, width, and area (or radius and area for circle).
+
+## General notes comparing Composition and Inheritance
+
+In the classic design patterns book the authors recommend favoring composition over class inheritance
+
+But it was written for C. Many people in the JavaScript community misunderstand composition.
+
+With composition we are using delegation instead of classes that are instances of their parent classes. We want to create a class that delegates the re-usable properties to a different class. Our class will _have a_ instance of the other class. Our class delegates these re-usable properties to this other class.
+
+In english composition is to build something from other things.
+
+In programming, composition is on object has a reference to another object (or possibly multiple other objects).  
+EX:
+
+```
+class Rectangle {
+    width: number;
+    height: number;
+    area(): number {
+        return this.height * this.number;
+    }
+}
+
+class Wall {
+    constructor(public shape: Rectangle){}
+    color: string;
+}
+```
+
+There are many blog posts out there talking about composition where you have multiple objects (a Window object and a Rectangle object) and you just combine them both into a SquareWindow object. But really, you just created a new object that was an instance of Rectangle and an instance of Window.
+
+This is not composition (programming definition). It is Multiple Inheritance. If both original objects have a method with the same name, then your new object is going to have issues because there is a conflict between the methods. Which ever objects that got added/combined into your new object last will be the one whose property is referenced when that method is called. This is extremely brittle and hard to predict what will happen.
